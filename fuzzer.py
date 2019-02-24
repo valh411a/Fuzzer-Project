@@ -1,5 +1,5 @@
 import sys
-
+import mechanicalsoup
 import requests
 
 from options import *
@@ -24,20 +24,17 @@ if options.auth_type is not None:
     }
 
     session = requests.Session()
-    session.post(custom_auth[options.auth_type.lower()]["login_url"], data=payload)
-    page = session.get(url + "/" + options.auth_type)
+    browser = mechanicalsoup.StatefulBrowser(session)
 
-    # set the security cookie to low!
-    cookies = session.cookies
-    session_id = cookies["PHPSESSID"]
-    session.cookies.clear()  # clear the cookies in the cookie
-
-    session.cookies["PHPSESSID"] = session_id
-    session.cookies["security"] = "low"
-
-    # I'm hoping this is what you meant by "print the contents of the HTML of the DVWA home page to the console",
-    # if not, let me know and I can modify it if needed.
-    print(page.content)
+    browser.open(custom_auth[options.auth_type.lower()]["login_url"])
+    # print(browser.get_current_page(), "\n")
+    # print(browser.get_current_page().find_all("input", class_='loginInput'), "\n")
+    browser.select_form()
+    browser.get_current_form().print_summary()
+    browser["username"] = username
+    browser["password"] = password
+    browser.submit_selected()
+    browser.launch_browser()
 
     # if the --custom-auth option is not invoked, crawl the page (part 2)
 else:

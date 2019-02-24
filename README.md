@@ -1,5 +1,5 @@
 # Cameron DeVaul's Fuzzer Project
-## currently formatted for part 1
+## currently in process of formatting for part 2
 ### Setup Instructions:
 1. Download the following files to a folder of choice:
     - fuzzer.py
@@ -17,6 +17,7 @@
     - see [fuzzer.py](fuzzer.py), line 38-40 for said output code
 - Referenced from a similarly designed Fuzzer project code
     - https://github.com/tofferrosen/Fuzzer
+    - currently in process of migrating code to my own format using mechanical soup as the basis
   
 If you have any questions, feel free to email me.
  
