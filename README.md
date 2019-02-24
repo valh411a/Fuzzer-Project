@@ -17,7 +17,8 @@
     - see [fuzzer.py](fuzzer.py), line 38-40 for said output code
 - Referenced from a similarly designed Fuzzer project code
     - https://github.com/tofferrosen/Fuzzer
-    - currently in process of migrating code to my own format using mechanical soup as the basis
+    - migrated code to mechanicalsoup implementation
+    - modified output to make more sense in tune to the assignment
   
 If you have any questions, feel free to email me.
  

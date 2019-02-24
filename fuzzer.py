@@ -7,35 +7,36 @@ from custom_auth import *
 
 (options, args) = parser.parse_args()
 
-# action = sys.argv[1]
-url = sys.argv[1]
+action = sys.argv[1]
+url = sys.argv[2]
 
-# if action == "discover" or action == "test":
-if options.auth_type is not None:
+# handles the 2 major actions, as well as the test case for dvwa
+if action == "discover" or action == "test" or action == 'http://127.0.0.1:10000/dvwa/login.php':
+    if options.auth_type is not None:
+        username = custom_auth[options.auth_type.lower()]["username"]
+        password = custom_auth[options.auth_type.lower()]["password"]
 
-    username = custom_auth[options.auth_type.lower()]["username"]
-    password = custom_auth[options.auth_type.lower()]["password"]
+        # Details to be posted to the login form
+        payload = {
+            "username": username,
+            "password": password,
+            "Login": "Login"
+        }
 
-    # Details to be posted to the login form
-    payload = {
-        "username": username,
-        "password": password,
-        "Login": "Login"
-    }
+        session = requests.Session()
+        browser = mechanicalsoup.StatefulBrowser(session)
 
-    session = requests.Session()
-    browser = mechanicalsoup.StatefulBrowser(session)
+        browser.open(custom_auth[options.auth_type.lower()]["login_url"])
+        browser.select_form()
+        browser["username"] = username
+        browser["password"] = password
+        browser.submit_selected()
 
-    browser.open(custom_auth[options.auth_type.lower()]["login_url"])
-    # print(browser.get_current_page(), "\n")
-    # print(browser.get_current_page().find_all("input", class_='loginInput'), "\n")
-    browser.select_form()
-    browser.get_current_form().print_summary()
-    browser["username"] = username
-    browser["password"] = password
-    browser.submit_selected()
-    browser.launch_browser()
+        # output
+        print(browser.get_current_page())
 
-    # if the --custom-auth option is not invoked, crawl the page (part 2)
+        # if the --custom-auth option is not invoked, crawl the page (part 2)
+    if action == "test":
+        print("The code for testing the page will be implemented in part 3.")
 else:
-    print("code will be added in part 2")
+    parser.error("\nInvalid Action\nenter either discover or test as the first parameter.")
