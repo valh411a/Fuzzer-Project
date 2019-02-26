@@ -2,6 +2,7 @@ import sys
 import mechanicalsoup
 import requests
 
+import discovery
 from options import *
 from custom_auth import *
 
@@ -45,13 +46,7 @@ if action == "discover" or action == "test" or url is None:
         # part 1 output
         # print(browser.get_current_page(), "\n")
 
-        listLinks = browser.links()
-        externals = browser.links(target="_blank")
-        for ext in externals:
-            listLinks.remove(ext)
-
-        for i in listLinks:
-            print(url + "/" + i.get("href"))
+        discovery.discoverLinks(browser, url)
 
     if action == "test":
         print("The code for testing the page will be implemented in part 3.")
