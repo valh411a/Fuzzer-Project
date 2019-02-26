@@ -2,6 +2,7 @@ import sys
 import mechanicalsoup
 import requests
 
+import common_words
 import discovery
 from options import *
 from custom_auth import *
@@ -26,6 +27,9 @@ if action == "discover" or action == "test" or url is None:
     if options.auth_type is not None:
         username = custom_auth[options.auth_type.lower()]["username"]
         password = custom_auth[options.auth_type.lower()]["password"]
+
+        common_words.createFile()
+        print(common_words)
 
         # Details to be posted to the login form
         payload = {
