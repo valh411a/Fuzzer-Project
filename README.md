@@ -1,11 +1,9 @@
 # Cameron DeVaul's Fuzzer Project
 ## currently in process of formatting for part 2
 ### Setup Instructions:
-1. Download the following files to a folder of choice:
-    - fuzzer.py
-    - options.py
-    - custom_auth.py
-    - custom_auth.json
+1. Download the files to a folder of choice:
+    - input required includes an action, an url
+    - custom authentication is recommended for testing purposes
 ### External Libraries:
 - sys       *(for system argument requests)*
 - requests  *(for handling http requests)*

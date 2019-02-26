@@ -7,11 +7,21 @@ from custom_auth import *
 
 (options, args) = parser.parse_args()
 
-action = sys.argv[1]
-url = sys.argv[2]
+action = None
+url = None
+if len(sys.argv) > 2:
+    action = sys.argv[1]
+    url = sys.argv[2]
+elif len(sys.argv) <= 1:
+    parser.error("No arguements Provided")
 
 # handles the 2 major actions, as well as the test case for dvwa
-if action == "discover" or action == "test" or action == 'http://127.0.0.1:10000/dvwa/login.php':
+if action == "discover" or action == "test" or url is None:
+    if url is None:
+        print("Action left blank; engaging in DVWA test...")
+        url = "http://127.0.0.1:10000/dvwa"
+    if options.common_words is None:
+        parser.error("\'Common words\' file required for discovery.")
     if options.auth_type is not None:
         username = custom_auth[options.auth_type.lower()]["username"]
         password = custom_auth[options.auth_type.lower()]["password"]
@@ -32,10 +42,17 @@ if action == "discover" or action == "test" or action == 'http://127.0.0.1:10000
         browser["password"] = password
         browser.submit_selected()
 
-        # output
-        print(browser.get_current_page())
+        # part 1 output
+        # print(browser.get_current_page(), "\n")
 
-        # if the --custom-auth option is not invoked, crawl the page (part 2)
+        listLinks = browser.links()
+        externals = browser.links(target="_blank")
+        for ext in externals:
+            listLinks.remove(ext)
+
+        for i in listLinks:
+            print(url + "/" + i.get("href"))
+
     if action == "test":
         print("The code for testing the page will be implemented in part 3.")
 else:
