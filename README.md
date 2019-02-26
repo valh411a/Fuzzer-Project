@@ -9,6 +9,11 @@
 - requests  *(for handling http requests)*
 - optparse  *(for creating and handling optional arguments)*
 - json      *(for compartmentalized information handling)*
+### Example Usage:
+- (empty input)                         *returns an exception-caught error that inquires the necessity of using arguments*
+- --custom-auth=dvwa                    *covers test case for crawling the dvwa*
+- discover (url) --custom-auth=dvwa     *runs the discovery section of the fuzzer using dvwa authentication standards*
+- test (url) --custom-auth=(auth_type)  *runs the discovery and test sections of the fuzzer using the authentication standard outlined by the user*
 ### Assignment notes:
 - files are distributed so that I can add to them in future steps
 - Output is coded as for how I interpreted it from the assignment
