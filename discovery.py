@@ -1,7 +1,4 @@
-
-
 def recursiveFollow(browser, domain, url, listLinks, maxDepth, currentDepth):
-
     if currentDepth == maxDepth:
         return
 
@@ -23,7 +20,6 @@ def recursiveFollow(browser, domain, url, listLinks, maxDepth, currentDepth):
 
             elif domain + "/" + href not in listLinks:
                 listLinks.append(domain + "/" + href)
-
 
     return listLinks
 
@@ -48,5 +44,3 @@ def discoverLinks(browser, url):
         recursiveFollow(browser, url, each, listLinks, 10, 0)
 
     return listLinks
-
-

@@ -59,4 +59,3 @@ if action == "discover" or action == "test" or url is None:
 else:
     print(sys.argv)
     parser.error("\nInvalid Action\nenter either discover or test as the first parameter.")
-
