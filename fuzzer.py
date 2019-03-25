@@ -11,7 +11,9 @@ from custom_auth import *
 
 action = None
 url = None
-if len(sys.argv) > 2:
+if len(sys.argv) == 3:
+    action = "discover"
+elif len(sys.argv) > 2:
     action = sys.argv[1]
     url = sys.argv[2]
 elif len(sys.argv) <= 1:
@@ -29,8 +31,6 @@ if action == "discover" or action == "test" or url is None:
         password = custom_auth[options.auth_type.lower()]["password"]
 
         common_words.createFile()
-        print(common_words)
-
         # Details to be posted to the login form
         payload = {
             "username": username,
@@ -50,9 +50,13 @@ if action == "discover" or action == "test" or url is None:
         # part 1 output
         # print(browser.get_current_page(), "\n")
 
-        discovery.discoverLinks(browser, url)
+        urlList = discovery.discoverLinks(browser, url)
+        for each in urlList:
+            print(each)
 
     if action == "test":
         print("The code for testing the page will be implemented in part 3.")
 else:
+    print(sys.argv)
     parser.error("\nInvalid Action\nenter either discover or test as the first parameter.")
+
